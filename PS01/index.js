@@ -2,7 +2,7 @@ var svg = d3.select('svg')
     .append('g')
     .attr('transform','translate(100,100)');
 
-document.body.style.backgroundImage = "url('http://www.raiznerlaw.com/wp-content/uploads/2016/09/bigstock-Black-smoke-cloud-series-26409170.jpg')";
+document.body.style.backgroundImage = "url('https://s-media-cache-ak0.pinimg.com/originals/7b/ef/15/7bef154dc7dd0cb3fdebaae1250ff2ce.jpg')";
 
 var dataRec;
 var dataMed;
@@ -22,25 +22,36 @@ d3.csv('./dataFinal.csv', function(dataIn) {
         .attr('cy', function(d){
             return scaleY(d.y)
         })
-        .attr('r', 10);
+        .attr('r', 10)
+        .style('fill','green')
+        .style('stroke','green');
 
     svg.append('g')
         .attr('transform','translate(0,540)')
-        .call(d3.axisBottom(scaleX));
+        .call(d3.axisBottom(scaleX))
+        .style('fill','greenYellow')
+        .style('font-size','12')
+        .style('stroke','green')
+        .style('line-color','white');
 
     svg.append('g')
-        .call(d3.axisLeft(scaleY));
+        .call(d3.axisLeft(scaleY))
+        .style('fill','greenYellow')
+        .style('font-weight','light')
+        .style('font-size','8')
+        .style('stroke','green');
 
     svg.append('text')
         .text('The History of')
-        .attr('transform','translate(300, -20)')
+        .attr('font-size','24')
+        .attr('transform','translate(350, -30)')
         .style('text-anchor','middle')
-        .style('fill','green');
+        .style('fill','greenYellow');
 
     svg.append('text')
-        .attr('x',150)
+        .attr('x',100)
         .attr('y',0)
-        .attr('font-size',24)
+        .attr('font-size',38)
         .text('Marijuana Laws Across the U.S.')
         .style('fill','green');
 
@@ -49,14 +60,15 @@ d3.csv('./dataFinal.csv', function(dataIn) {
         .attr('y',545)
         .attr('font-size',16)
         .text('YEAR')
-        .style('fill','green');
+        .style('fill','greenYellow');
 
     svg.append('text')
         .attr('x',-60)
         .attr('y',-15)
         .attr('font-size',16)
+        .attr('font-weight','heavy')
         .text('STATE')
-        .style('fill','green');
+        .style('fill','greenYellow');
 
     svg.selectAll('circles')
         .data(dataRec)
@@ -92,7 +104,7 @@ var scaleY = d3.scaleOrdinal().domain(["AL, Montgomery", "AK, Juneau", "AZ, Phoe
     440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 540]);
 
     svg.selectAll('circles')
-        .data(dataIn)
+        .data(dataRec)
         .enter()
         .append('circle')
         .attr('class','Recreational')
@@ -100,22 +112,39 @@ var scaleY = d3.scaleOrdinal().domain(["AL, Montgomery", "AK, Juneau", "AZ, Phoe
         .attr('fill', "green");
 
     svg.selectAll('circles')
-        .data(dataIn)
+        .data(dataMed)
         .enter()
         .append('circle')
         .attr('class','Medical')
         .attr('r', 5)
-        .attr('fill', "lime");
+        .attr('fill', "greenYellow");
 
     svg.selectAll('.Recreational')
         .data(pointsData)
         .attr('cx',function(d){
             return scaleX(d.state);
         })
+        .attr('cy', function(d) {
+            return scaleY(d.dataRec);
+        });
+
+    svg.selectAll('.Medical')
+        .data(pointsData)
+        .attr('cx',function(d){
+            return scaleX(d.state);
+        })
         .attr('cy', function(d){
-            return scaleY(d.state);
+            return scaleY(d.dataRec);
 });
 
+if (clicked == true) {
+    drawPoints(dataMed);
+    clicked = false;
+}
+else {
+    drawPoints(dataRec);
+    clicked = true;
+}
 
 
 
