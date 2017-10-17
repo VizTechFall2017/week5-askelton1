@@ -2,6 +2,8 @@ var svg = d3.select('svg')
     .append('g')
     .attr('transform','translate(100,100)');
 
+document.body.style.backgroundImage = "url('http://www.raiznerlaw.com/wp-content/uploads/2016/09/bigstock-Black-smoke-cloud-series-26409170.jpg')";
+
 var dataRec;
 var dataMed;
 
@@ -90,7 +92,7 @@ var scaleY = d3.scaleOrdinal().domain(["AL, Montgomery", "AK, Juneau", "AZ, Phoe
     440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 540]);
 
     svg.selectAll('circles')
-        .data(dataRec)
+        .data(dataIn)
         .enter()
         .append('circle')
         .attr('class','Recreational')
@@ -98,12 +100,22 @@ var scaleY = d3.scaleOrdinal().domain(["AL, Montgomery", "AK, Juneau", "AZ, Phoe
         .attr('fill', "green");
 
     svg.selectAll('circles')
-        .data(dataMed)
+        .data(dataIn)
         .enter()
         .append('circle')
         .attr('class','Medical')
         .attr('r', 5)
         .attr('fill', "lime");
+
+    svg.selectAll('.Recreational')
+        .data(pointsData)
+        .attr('cx',function(d){
+            return scaleX(d.state);
+        })
+        .attr('cy', function(d){
+            return scaleY(d.state);
+});
+
 
 
 
