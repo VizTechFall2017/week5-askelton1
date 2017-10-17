@@ -6,31 +6,32 @@ document.body.style.backgroundImage = "url('https://s-media-cache-ak0.pinimg.com
 
 var dataRec;
 var dataMed;
+var STATE;
 
 var clicked = true;
 
 d3.csv('./dataFinal.csv', function(dataIn) {
     console.log(dataIn);
 
-    svg.selectAll('circle')
+    /*svg.selectAll('circle')
         .data(dataIn)
         .enter()
         .append('circle')
         .attr('cx', function(d){
-            return scaleX(d.x)
+            return scaleX(dataMed)
         })
         .attr('cy', function(d){
-            return scaleY(d.y)
+            return scaleY(STATE)
         })
         .attr('r', 10)
         .style('fill','green')
-        .style('stroke','green');
+        .style('stroke','green');*/
 
     svg.append('g')
         .attr('transform','translate(0,540)')
         .call(d3.axisBottom(scaleX))
         .style('fill','greenYellow')
-        .style('font-size','12')
+        .style('font-size','18')
         .style('stroke','green')
         .style('line-color','white');
 
@@ -38,7 +39,7 @@ d3.csv('./dataFinal.csv', function(dataIn) {
         .call(d3.axisLeft(scaleY))
         .style('fill','greenYellow')
         .style('font-weight','light')
-        .style('font-size','8')
+        .style('font-size','10')
         .style('stroke','green');
 
     svg.append('text')
@@ -56,7 +57,7 @@ d3.csv('./dataFinal.csv', function(dataIn) {
         .style('fill','green');
 
     svg.append('text')
-        .attr('x',515)
+        .attr('x',760)
         .attr('y',545)
         .attr('font-size',16)
         .text('YEAR')
@@ -70,7 +71,7 @@ d3.csv('./dataFinal.csv', function(dataIn) {
         .text('STATE')
         .style('fill','greenYellow');
 
-    svg.selectAll('circles')
+    /*svg.selectAll('circles')
         .data(dataRec)
         .enter()
         .append('circle')
@@ -82,24 +83,16 @@ d3.csv('./dataFinal.csv', function(dataIn) {
         .enter()
         .append('circle')
         .attr('r', 5)
-        .attr('fill', "green");
+        .attr('fill', "green");*/
 
 
 });
 
-var scaleX = d3.scaleOrdinal().domain(["1930","1950", "1970", "1990", "2010","2030"]).range([0, 100, 200, 300, 400, 500]);
-var scaleY = d3.scaleOrdinal().domain(["AL, Montgomery", "AK, Juneau", "AZ, Phoenix","AR, Little Rock",
-    "CA, Sacramento", "CO, Denver", "CT, Hartford", "DE, Dover", "FL, Tallahassee",
-    "GA, Atlanta", "HI, Honolulu", "ID, Boise", "IL, Springfield", "IN, Indianapolis",
-    "IA, Des Moines", "KS, Topeka", "KY, Frankfort", "LA, Baton Rouge", "ME, Augusta",
-    "MD, Annapolis", "MA, Boston", "MI, Lansing", "MN, St. Paul", "MS, Jackson",
-    "MO, Jefferson City", "MT, Helena", "NE, Lincoln", "NV, Carson City", "NH, Concord",
-    "NJ, Trenton", "NM, Santa Fe", "NY, Albany", "NC, Raleigh", "ND, Bismarck",
-    "OH, Columbus", "OK, Oklahoma City", "OR, Salem", "PA, Harrisburg", "RI, Providence",
-    "SC, Columbia", "SD, Sioux*", "SD, Pierre", "TN, Nashville", "TX, Austin",
-    "UT, Salt Lake City", "VT, Montpelier", "VA, Richmond", "Washington DC", "WA, Olympia",
-    "WA, Squaxin Island*", "WA, Suquamish*", "WV, Charleston", "WI, Madison",
-    "WY, Cheyenne"]).range([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200,
+var scaleX = d3.scaleOrdinal().domain(["1930","1950", "1970", "1990", "2010","2030"]).range([0, 150, 300, 450, 600, 750]);
+var scaleY = d3.scaleOrdinal().domain(["AL", "AK", "AZ","AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN",
+    "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC",
+    "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "SD", "TN", "TX", "UT", "VT", "VA", "DC", "WA",
+    "SI", "SQ", "WV", "WI", "WY"]).range([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200,
     210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430,
     440, 450, 460, 470, 480, 490, 500, 510, 520, 530, 540]);
 
@@ -134,7 +127,7 @@ var scaleY = d3.scaleOrdinal().domain(["AL, Montgomery", "AK, Juneau", "AZ, Phoe
             return scaleX(d.state);
         })
         .attr('cy', function(d){
-            return scaleY(d.dataRec);
+            return scaleY(d.dataMed);
 });
 
 if (clicked == true) {
